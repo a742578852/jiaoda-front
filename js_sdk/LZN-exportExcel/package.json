@@ -1,0 +1,13 @@
+{
+    "id": "LZN-exportExcel",
+    "name": "离线导出Excel，支持Base64图片",
+    "version": "1.0.0",
+    "description": "项目中用到离线导出Excel，写了一个分享出来，仅支持APP，只测试了Android，iOS理论上没问题，只用js实现的，用到了5+plus，看源码修改一下，应该也能在别的平台用",
+    "keywords": [
+        "导出Excel",
+        "导出",
+        "Excel",
+        "导出图片",
+        "保存Base64图片"
+    ]
+}
