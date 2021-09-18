@@ -51,6 +51,10 @@
 				style="color: #FFFFFF;width: 500upx;margin-bottom: 30rpx;background-color: #4a5cd0;">
 				{{binding}}
 			</u-button>
+			<u-button @click="sousuo()" v-if="this.bleList == ''" shape="circle" size="default"
+				style="color: #FFFFFF;width: 500upx;margin-bottom: 30rpx;background-color: #4a5cd0;">
+				搜索设备
+			</u-button>
 		</view>
 
 		<!--提醒弹出框-->
@@ -96,6 +100,24 @@
 			}
 		},
 		methods: {
+			//手动搜索设备
+			sousuo(){
+				var _this = this
+				uni.openBluetoothAdapter({
+					
+					success(res) {
+						console.log('蓝牙初始化'+res);
+						//蓝牙初始化成功,开始搜索
+						_this.startBluetoothDeviceDiscovery()
+				
+					},
+					fail() {
+						//蓝牙初始化失败,弹窗提示打开蓝牙
+						_this.popubShow = true
+					}
+				
+				})
+			},
 			bluetoothIsOpen(){
 					//关闭蓝牙搜索
 					this.stopBluetoothDevicesDiscovery()
@@ -287,6 +309,9 @@
 			//连接蓝牙设备
 
 
+		},
+		watch:{
+			
 		},
 
 		onShow() {

@@ -121,7 +121,7 @@ module.exports = {
       ],
       "rotate": false,
       "errorReload": true,
-      "fontSize": 13,
+      "fontSize": 10,
       "fontColor": "#666666",
       "enableScroll": false,
       "touchMoveLimit": 60,

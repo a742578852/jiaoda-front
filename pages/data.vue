@@ -27,7 +27,7 @@
 			<u-select v-model="show" @click="show = !show" :list="list" @confirm="confirm" ></u-select>
 			<u-input v-model="value4" type="text" border disabled @click="show = !show" placeholder='输入传感器'/>
 			<u-button type="success" size='medium' style='margin-left:20upx;margin-right: 20upx;' @click="startCJ">开始</u-button>
-			<u-button  type="success" size='medium' >结束</u-button>
+			<u-button  type="success" size='medium' @click="over">结束</u-button>
 		</view>
 		<view class="chart">
 			<view class="charts-box">
@@ -626,6 +626,8 @@
 											`characteristic ${res.characteristicId} has changed, now is ${res.value}`
 											)
 										console.log(ab2hex(res.value))
+										console.log(ab2hex(res))
+										console.log(res.value)
 										//数据解析
 										var linData = ab2hex(res.value)
 										//获取当前时间
@@ -651,7 +653,7 @@
 										if(second < 10){
 											second = '0' + second;
 										}
-										var time = year+'年' + month+'月' + day+'日' + hour+'时' + minute+'分' + second+'秒'
+										var time = year+'年' + month+'月' + day+'日 ' + hour+':' + minute+':' + second
 										if(linData.substring(0,4)=='aaaa'){
 											//加速度计数据
 											_this.jsdjData[0].data.push(hex2int(linData.substring(4,8)))
@@ -802,7 +804,36 @@
 					}
 				})
 			},
-			
+			//清空统计图
+			over(){
+				this.jsdjData[0].data = []
+				this.jsdjData[1].data = []
+				this.jsdjData[2].data = []
+				this.tlyData[0].data = []
+				this.tlyData[1].data = []
+				this.tlyData[2].data = []
+				this.cljData[0].data = []
+				this.cljData[1].data = []
+				this.cljData[2].data = []
+				this.xyxlData[0].data = []
+				this.xyxlData[1].data = []
+				this.AFEData1[0].data = []
+				this.AFEData1[1].data = []
+				this.AFEData1[2].data = []
+				this.AFEData1[3].data = []
+				this.AFEData1[4].data = []
+				this.AFEData1[5].data = []
+				this.AFEData1[6].data = []
+				this.AFEData1[7].data = []
+				this.AFEData2[0].data = []
+				this.AFEData2[1].data = []
+				this.AFEData2[2].data = []
+				this.AFEData2[3].data = []
+				this.AFEData2[4].data = []
+				this.AFEData2[5].data = []
+				this.AFEData2[6].data = []
+				this.AFEData2[7].data = []
+			},
 			//下拉列表查询返回
 			confirm(e){
 				this.value4 = e[0].label
@@ -876,7 +907,7 @@
 						var SaveData = [{'content':yi},{'content':er},{'content':san},{'content':si},{'content':wu},{'content':liu},{'content':qi},{'content':ba},{'content':time}]
 						this.data4.push(SaveData)
 					}
-				doExport(this.value+'光学传感器',this.data4,this.callback)
+				doExport(this.value+'1-生物电势AFE',this.data4,this.callback)
 				
 				//导出2-生物电势AFE数据
 				this.data5.push([{'content':'一通道'},{'content':'二通道'},{'content':'三通道'},{'content':'四通道'},{'content':'五通道'},{'content':'六通道'},{'content':'七通道'},{'content':'八通道'},{'content':'时间'}])
@@ -885,15 +916,34 @@
 						var er = this.AFEData22[1].data[i]
 						var san = this.AFEData22[2].data[i]
 						var si = this.AFEData22[3].data[i]
-						var wu = this.AFEData22[4].data[i]
-						var liu = this.AFEData22[5].data[i]
-						var qi = this.AFEData22[6].data[i]
-						var ba = this.AFEData22[7].data[i]
+						if(this.AFEData22[4].data[i] != '' && this.AFEData22[4].data[i] != null){
+							var wu = this.AFEData22[4].data[i]
+						}else{
+							var wu = ''
+						}
+						if(this.AFEData22[5].data[i] != '' && this.AFEData22[5].data[i] != null){
+							var liu = this.AFEData22[5].data[i]
+						}else{
+							var liu = ''
+						}
+						if(this.AFEData22[6].data[i] != '' && this.AFEData22[6].data[i] != null){
+							var qi = this.AFEData22[6].data[i]
+						}else{
+							var qi = ''
+						}
+						if(this.AFEData22[7].data[i] != '' && this.AFEData22[7].data[i] != null){
+							var ba = this.AFEData22[7].data[i]
+						}else{
+							var ba = ''
+						}
+						// var liu = this.AFEData22[5].data[i]
+						// var qi = this.AFEData22[6].data[i]
+						// var ba = this.AFEData22[7].data[i]
 						var time = this.AFEData22[0].date[i]
 						var SaveData = [{'content':yi},{'content':er},{'content':san},{'content':si},{'content':wu},{'content':liu},{'content':qi},{'content':ba},{'content':time}]
 						this.data5.push(SaveData)
 					}
-				doExport(this.value+'光学传感器',this.data5,this.callback)
+				doExport(this.value+'2-生物电势AFE',this.data5,this.callback)
 				
 			},
 			callback(e){
